@@ -62,8 +62,7 @@
 
 <hr>
 <h2>Template Engine</h2>
-<p>Untuk mempermudah pembuatan project, khususnya website, maka diperlukan template enginge.</p>
-<p>Legit menggunakan template engine dari <a href="https://docs.gofiber.io/template/django/">Django</a> yang disediakan oleh Fiber.</p>
+<p>Untuk mempermudah pembuatan project, khususnya website, maka diperlukan template enginge. Legit menggunakan template engine dari <a href="https://docs.gofiber.io/template/django/">Django</a> yang disediakan oleh Fiber.</p>
 
 <hr>
 <h2>Kontribusi</h2>
