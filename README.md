@@ -38,13 +38,19 @@
 <h2>Installasi</h2>
 <p>Berikut ini langkah-langkah installasi legit framework:</p>
 <ol>
-    <li>Buka terminal/cmd/git bash.</li>
-    <li>`git clone https://github.com/codingersid/legit.git namaAplikasiAnda`</li>
+    <li>Buka terminal/cmd/git bash.<br/>
+        ```sh
+        git clone https://github.com/codingersid/legit.git namaAplikasiAnda
+        ```
+   </li>
     <li>Buka folder namaAplikasiAnda di Text Editor Anda</li>
     <li>Copy file <code>.env.example</code> kemudian ubah menjadi <code>.env</code></li>
     <li>Buatlah 1 database dan konfigurasi pada file <code>.env</code></li>
-    <li>Buka terminal dan jalankan server</li>
-    <li>`go run legit.go dev`</li>
+    <li>Buka terminal dan jalankan server<br/>
+        ```sh
+        go run legit.go dev
+        ```
+   </li>
     <li>Setelah berhasil, akses URL <code>http://127.0.0.1:3000/</code> di Browser Anda</li>
     <li>Selamat Legit Framework Berhasil Diinstall dan Dijalankan!</li>
 </ol>
@@ -53,24 +59,51 @@
 <h2>Legit CLI</h2>
 <p>Berikut ini adalah beberapa perintah yang bisa Anda jalankan di terminal dalam pengembangan projek dengan Legit:</p>
 <ol>
-    <li>Perintah untuk <code>help</code></li>
-    <li>`go run legit.go -h`</li>
-    <li>Perintah untuk <code>menjalankan server</code></li>
-    <li>`go run legit.go dev`</li>
-    <li>Perintah untuk cek <code>versi</code></li>
-    <li>`go run legit.go versi`</li>
-    <li>Perintah untuk membuat <code>controller</code></li>
-    <li>`go run legit.go controller NamaControllerNya`</li>
-    <li>Perintah untuk membuat <code>model</code></li>
-    <li>`go run legit.go model NamaModelNya`</li>
-    <li>Perintah untuk membuat <code>request</code></li>
-    <li>`go run legit.go request NamaRequestNya`</li>
-    <li>Perintah untuk membuat <code>middleware</code></li>
-    <li>`go run legit.go middleware NamaMiddlewareNya`</li>
-    <li>Perintah untuk membuat <code>migration</code></li>
-    <li>`go run legit.go migration NamaTabelNya`</li>
-    <li>Perintah untuk membuat <code>seeder</code></li>
-    <li>`go run legit.go seeder NamaSeederNya`</li>
+    <li>Perintah untuk <code>help</code><br/>
+        ```sh
+        go run legit.go -h
+        ```
+    </li>
+    <li>Perintah untuk <code>menjalankan server</code><br/>
+        ```sh
+        go run legit.go dev
+        ```
+    </li>
+    <li>Perintah untuk cek <code>versi</code><br/>
+        ```sh
+        go run legit.go versi
+        ```
+    </li>
+    <li>Perintah untuk membuat <code>controller</code><br/>
+        ```sh
+        go run legit.go controller NamaControllerNya
+        ```
+    </li>
+    <li>Perintah untuk membuat <code>model</code><br/>
+        ```sh
+        go run legit.go model NamaModelNya
+        ```
+    </li>
+    <li>Perintah untuk membuat <code>request</code><br/>
+        ```sh
+        go run legit.go request NamaRequestNya
+        ```
+    </li>
+    <li>Perintah untuk membuat <code>middleware</code><br/>
+        ```sh
+        go run legit.go middleware NamaMiddlewareNya
+        ```
+    </li>
+    <li>Perintah untuk membuat <code>migration</code><br/>
+        ```sh
+        go run legit.go migration NamaTabelNya
+        ```
+    </li>
+    <li>Perintah untuk membuat <code>seeder</code><br/>
+        ```sh
+        go run legit.go seeder NamaSeederNya
+        ```
+    </li>
 </ol>
 
 <hr>
