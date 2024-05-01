@@ -36,7 +36,8 @@
 <h2>Installasi</h2>
 <p>Berikut ini langkah-langkah installasi legit framework:</p>
 <ol>
-    <li>Buka terminal/cmd/git bash.<p><code><pre>git clone https://github.com/codingersid/legit.git namaAplikasiAnda</code></pre></p></li>
+    <li>Buka terminal/cmd/git bash.</li>
+    <code><pre>git clone https://github.com/codingersid/legit.git namaAplikasiAnda</code></pre>
     <li>Buka folder namaAplikasiAnda di Text Editor Anda</li>
     <li>Copy file <code>.env.example</code> kemudian ubah menjadi <code>.env</code></li>
     <li>Buatlah 1 database dan konfigurasi pada file <code>.env</code></li>
