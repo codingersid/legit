@@ -61,6 +61,29 @@
 </ol>
 
 <hr>
+<h2>Menjalankan Command legit di Terminal</h2>
+<p>Apabila Anda merasa command dengan <code>go run legit.go [command]</code> terlalu panjang, Anda bisa mengatur di terminal agar bisa menjadi singkat menjadi <code>legit [command]</code></p>
+
+<h3>Pengaturan di Mac/Unix/Linux</h3>
+<ol>
+    <li>Buka project Anda dengan Text Editor, lalu jalankan terminal.</li>
+    <li>Jalankan perintah berikut ini:
+        <pre><code>go install</code></pre>
+        <pre><code>export PATH=$PATH:$(go env GOPATH)/bin</code></pre>
+        <pre><code>source ~/.zshrc atau ~/.bashrc</code></pre>
+    </li>
+</ol>
+
+<h3>Pengaturan di Windows</h3>
+<ol>
+    <li>Buka project Anda dengan Text Editor, lalu jalankan terminal.</li>
+    <li>Jalankan perintah berikut ini:
+        <pre><code>go install</code></pre>
+    </li>
+    <li>Tambahkan <code>C:\Go\bin</code> pada PATH Windows Anda.<a href="https://wahyu-ehs.medium.com/cara-install-golang-di-windows-5060aa2383a9">Menginstall Path Go di Windows</a></li>
+</ol>
+
+<hr>
 <h2>Template Engine</h2>
 <p>Untuk mempermudah pembuatan project, khususnya website, maka diperlukan template enginge. Legit menggunakan template engine dari <a href="https://docs.gofiber.io/template/django/">Django</a> yang disediakan oleh Fiber.</p>
 
