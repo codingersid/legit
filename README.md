@@ -53,6 +53,7 @@
     <li>Perintah untuk <code>menjalankan server</code>.<pre><code>go run legit.go dev</code></pre></li>
     <li>Perintah untuk cek <code>versi</code>.<pre><code>go run legit.go versi</code></pre></li>
     <li>Perintah untuk membuat <code>controller</code>.<pre><code>go run legit.go controller NamaControllerNya</code></pre></li>
+    <li>Perintah untuk membuat <code>controller + route</code>.<pre><code>go run legit.go controller NamaControllerNya --with-route</code></pre></li>
     <li>Perintah untuk membuat <code>model</code>.<pre><code>go run legit.go model NamaModelNya</code></pre></li>
     <li>Perintah untuk membuat <code>request</code>.<pre><code>go run legit.go request NamaRequestNya</code></pre></li>
     <li>Perintah untuk membuat <code>middleware</code>.<pre><code>go run legit.go middleware NamaMiddlewareNya</code></pre></li>
