@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Page {{ .Page }}</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .container {
+            text-align: center;
+        }
+        
+        .logo {
+            width: 300px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        
+        .description {
+            display: inline-block;
+            font-size: 18px;
+            line-height: 1.5;
+            max-width: 550px;
+        }
+        
+        span {
+            color: #73CDDC;
+        }
+        
+        a {
+            color: #73CDDC;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img class="logo" src="https://raw.githubusercontent.com/codingersid/legit-cli/main/assets/legit-logo/legit%20landscape%20color.png" alt="Legit Framework Logo" draggable="false">
+        <h1>Ini adalah page <span>{{ .Page }}</span></h1>
+        <p class="description">Silahkan Anda edit controller pada page ini sesuai kebutuhan Anda.</p>
+    </div>
+</body>
+
+</html>
