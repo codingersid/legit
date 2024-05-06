@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"strconv"
+	"strings"
 
 	legitConfig "github.com/codingersid/legit-cli/config"
 	"github.com/codingersid/legit/config"
@@ -11,6 +13,7 @@ import (
 	"github.com/codingersid/legit/routes"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/helmet"
 	"github.com/gofiber/template/html/v2"
 )
 
@@ -18,16 +21,23 @@ func main() {
 	// engine config
 	env := legitConfig.LoadEnv()
 	llog := legitConfig.InitLogger("logs")
-	config.ConnectDB()
 
-	// database config
-	if env["APP_ENV"] == "local" {
-		migrations.RunMigration()
-		seeders.RunSeeder()
+	// tanpa database
+	if env["APP_NO_DB"] == "false" {
+		config.ConnectDB()
+		// database config
+		if env["APP_ENV"] == "local" {
+			migrations.RunMigration()
+			seeders.RunSeeder()
+		}
 	}
 
 	// buat engine
-	engine := html.New("./resources", ".html")
+	resourcesPath := "./resources"
+	if _, err := os.Stat(resourcesPath); os.IsNotExist(err) {
+		resourcesPath = "../resources"
+	}
+	engine := html.New(resourcesPath, ".html")
 
 	// panggil Fiber
 	app := fiber.New(fiber.Config{
@@ -50,14 +60,34 @@ func main() {
 		},
 	})
 
-	// lokasi file statics (images, css, js, plugins)
-	app.Static("/", "./public/statics")
-
 	// konfigurasi middleware
 	app.Use(cors.New())
 
+	// konfigurasi helmet
+	csp := config.ConfigCSP
+	app.Use(helmet.New(helmet.Config{
+		ContentSecurityPolicy: csp(),
+	}))
+
+	// Middleware untuk memfilter double slash di akhir URL
+	app.Use(func(c *fiber.Ctx) error {
+		path := c.Path()
+		if strings.HasSuffix(path, "//") {
+			newPath := strings.TrimSuffix(path, "/")
+			return c.Redirect(newPath)
+		}
+		return c.Next()
+	})
+
 	// Panggil routes web
 	routes.RouterWeb(app)
+
+	// lokasi file statics (images, css, js, plugins)
+	staticPath := "./public/statics"
+	if _, err := os.Stat(staticPath); os.IsNotExist(err) {
+		staticPath = "statics"
+	}
+	app.Static("/", staticPath)
 
 	// Kirim ke server
 	errServe := app.Listen(env["APP_URL"] + ":" + env["APP_PORT"])
