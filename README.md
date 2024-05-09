@@ -39,7 +39,6 @@
     <li>Buka terminal/cmd/git bash.<pre><code>git clone https://github.com/codingersid/legit.git namaAplikasiAnda</code></pre></li>
     <li>Buka folder namaAplikasiAnda di Text Editor Anda</li>
     <li>Copy file <code>.env.example</code> kemudian ubah menjadi <code>.env</code></li>
-    <li>Buatlah 1 database dan konfigurasi pada file <code>.env</code></li>
     <li>Buka terminal dan jalankan server.<pre><code>go run legit.go dev</code></pre></li>
     <li>Setelah berhasil, akses URL <code>http://127.0.0.1:3000/</code> di Browser Anda</li>
     <li>Selamat Legit Framework Berhasil Diinstall dan Dijalankan!</li>
@@ -71,7 +70,11 @@
     <li>Jalankan perintah berikut ini:
         <pre><code>go install</code></pre>
         <pre><code>export PATH=$PATH:$(go env GOPATH)/bin</code></pre>
-        <pre><code>source ~/.zshrc atau ~/.bashrc</code></pre>
+        <pre><code>source ~/.zshrc</code></pre>
+        <span>atau</span>
+        <pre><code>source ~/.bashrc</code></pre>
+        <span>atau</span>
+        <pre><code>source ~/.profile</code></pre>
     </li>
 </ol>
 
@@ -86,7 +89,7 @@
 
 <hr>
 <h2>Template Engine</h2>
-<p>Untuk mempermudah pembuatan project, khususnya website, maka diperlukan template enginge. Legit menggunakan template engine dari <a href="https://docs.gofiber.io/template/django/">Django</a> yang disediakan oleh Fiber.</p>
+<p>Untuk mempermudah pembuatan project, khususnya website, maka diperlukan template enginge. Legit menggunakan template engine dari <a href="https://docs.gofiber.io/template/html/">HTML</a> yang disediakan oleh Fiber.</p>
 
 <hr>
 <h2>Kontribusi</h2>
@@ -107,4 +110,5 @@
 &nbsp;|&nbsp;<a href="https://www.facebook.com/codingers.id" target="_blank" rel="noopener noreferrer">FACEBOOK</a>
 &nbsp;|&nbsp;<a href="https://codingers.id/" target="_blank" rel="noopener noreferrer">WEBSITE</a>
 &nbsp;|&nbsp;<a href="https://github.com/codingersid/" target="_blank" rel="noopener noreferrer">GITHUB</a>
+&nbsp;|&nbsp;<a href="https://s.id/komunitas-cid-24/" target="_blank" rel="noopener noreferrer">KOMUNITAS WA</a>
 </p>
