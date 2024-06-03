@@ -13,7 +13,7 @@
 
 <hr>
 <h2>Prasarat</h2>
-<p>Untuk bisa menggunakan framework ini, ada beberapa hal yang harus anda install terlebih dahulu.</p>
+<p>Untuk bisa menggunakan framework ini, ada beberapa hal yang harus Anda install terlebih dahulu.</p>
 <ul>
     <li><a href="https://git-scm.com/downloads" target="_blank">GIT</a></li>
     <li><a href="https://go.dev/dl/" target="_blank">Bahasa Go versi >= 1.17</a></li>
@@ -47,17 +47,106 @@
 <hr>
 <h2>Legit CLI</h2>
 <p>Berikut ini adalah beberapa perintah yang bisa Anda jalankan di terminal dalam pengembangan projek dengan Legit:</p>
+
+<h3>Command Umum</h3>
 <ol>
     <li>Perintah untuk <code>help</code>.<pre><code>go run legit.go -h</code></pre></li>
     <li>Perintah untuk <code>menjalankan server</code>.<pre><code>go run legit.go dev</code></pre></li>
     <li>Perintah untuk cek <code>versi</code>.<pre><code>go run legit.go versi</code></pre></li>
-    <li>Perintah untuk membuat <code>controller</code>.<pre><code>go run legit.go controller NamaControllerNya</code></pre></li>
-    <li>Perintah untuk membuat <code>controller + route</code>.<pre><code>go run legit.go controller NamaControllerNya --with-route</code></pre></li>
-    <li>Perintah untuk membuat <code>model</code>.<pre><code>go run legit.go model NamaModelNya</code></pre></li>
-    <li>Perintah untuk membuat <code>request</code>.<pre><code>go run legit.go request NamaRequestNya</code></pre></li>
-    <li>Perintah untuk membuat <code>middleware</code>.<pre><code>go run legit.go middleware NamaMiddlewareNya</code></pre></li>
-    <li>Perintah untuk membuat <code>migration</code>.<pre><code>go run legit.go migration NamaTabelNya</code></pre></li>
-    <li>Perintah untuk membuat <code>seeder</code>.<pre><code>go run legit.go seeder NamaSeederNya</code></pre></li>
+</ol>
+
+<h3>Command Controller</h3>
+<h4>Controller Untuk REST API</h4>
+<ol>
+    <li>Perintah untuk membuat <code>controller</code>.<pre><code>go run legit.go controller:api [controllernya]</code></pre>
+        <span>Contoh:</span> <code>go run legit.go controller:api auth/login</code>
+    </li>
+    <li>Perintah untuk membuat <code>controller + route</code>.<pre><code>go run legit.go controller:api [controllernya] --with:route</code></pre>
+        <span>Contoh:</span> <code>go run legit.go controller:api auth/login --with:route</code>
+    </li>
+</ol>
+
+<h4>Controller Untuk Web</h4>
+<ol>
+    <li>Perintah untuk membuat <code>controller</code>.<pre><code>go run legit.go controller:web [controllernya]</code></pre>
+        <span>Contoh:</span> <code>go run legit.go controller:web front_end/home</code>
+    </li>
+    <li>Perintah untuk membuat <code>controller + route</code>.<pre><code>go run legit.go controller:web [controllernya] --with:route</code></pre>
+        <span>Contoh:</span> <code>go run legit.go controller:web front_end/home --with:route</code>
+    </li>
+</ol>
+
+<h3>Command Route</h3>
+<h4>Route Untuk REST API</h4>
+<ol>
+    <li>Perintah untuk membuat <code>route</code>.<pre><code>go run legit.go route:api [controllernya]</code></pre>
+        <span>Contoh:</span> <code>go run legit.go route:api auth/login</code>. Command ini mirip seperti <code>go run legit.go controller:web front_end/home --with:route</code>, namun dijalankan terpisah apabila membutuhkan route untuk controller yang telah dibuat sebelumnya tanpa flags <code>--with:route</code>.
+    </li>
+</ol>
+
+<h4>Route Untuk Web</h4>
+<ol>
+    <li>Perintah untuk membuat <code>route</code>.<pre><code>go run legit.go route:web [controllernya]</code></pre>
+        <span>Contoh:</span> <code>go run legit.go route:web front_end/home</code>. Command ini mirip seperti <code>go run legit.go controller:web front_end/home --with:route</code>, namun dijalankan terpisah apabila membutuhkan route untuk controller yang telah dibuat sebelumnya tanpa flags <code>--with:route</code>.
+    </li>
+</ol>
+
+<h3>Command View</h3>
+<h4>Membuat Layout</h4>
+<ol>
+    <li>Perintah untuk membuat <code>layout</code>.<pre><code>go run legit.go layout [layoutnya]</code></pre>
+        <span>Contoh:</span> <code>go run legit.go layout layout</code>. Anda bisa membuat lebih dari 1 layout apabila dibutuhkan, dan bisa diletakkan di path tertentu, misalnya di path auth <code>go run legit.go layout auth/layout</code>.
+    </li>
+</ol>
+
+<h4>Membuat Partial</h4>
+<ol>
+    <li>Perintah untuk membuat <code>partial scripts</code>.<pre><code>go run legit.go partial:script [scriptnya]</code></pre>
+        <span>Contoh:</span> <code>go run legit.go partial:script home</code>. Anda bisa membuat lebih dari 1 file partial script apabila dibutuhkan, dan bisa diletakkan di path tertentu, misalnya di path auth <code>go run legit.go partial:script auth/login</code>.
+    </li>
+    <li>Perintah untuk membuat <code>partial header</code>.<pre><code>go run legit.go partial:header [headernya]</code></pre>
+        <span>Contoh:</span> <code>go run legit.go partial:header home</code>. Anda bisa membuat lebih dari 1 file partial header apabila dibutuhkan, dan bisa diletakkan di path tertentu, misalnya di path auth <code>go run legit.go partial:header auth/login</code>.
+    </li>
+    <li>Perintah untuk membuat <code>partial sidebar</code>.<pre><code>go run legit.go partial:sidebar [sidebarnya]</code></pre>
+        <span>Contoh:</span> <code>go run legit.go partial:sidebar home</code>. Anda bisa membuat lebih dari 1 file partial sidebar apabila dibutuhkan, dan bisa diletakkan di path tertentu, misalnya di path auth <code>go run legit.go partial:sidebar auth/login</code>.
+    </li>
+</ol>
+
+<h4>Membuat Page</h4>
+<ol>
+    <li>Perintah untuk membuat <code>page</code>.<pre><code>go run legit.go page [pagenya]</code></pre>
+        <span>Contoh:</span> <code>go run legit.go page home</code>. Anda bisa membuat lebih dari 1 page apabila dibutuhkan, dan bisa diletakkan di path tertentu, misalnya di path auth <code>go run legit.go page auth/login</code>.
+    </li>
+</ol>
+
+<h3>Command Generate</h3>
+<h4>Generate Route</h4>
+<ol>
+    <li>Perintah untuk generate <code>route api</code>.<pre><code>go run legit.go generate:route-api</code></pre>
+        Command ini akan mendeteksi semua controller api yang berada di path <code>app/http/controllers/api</code> kemudian men-generate seluruh routenya ke path <code>routes/inners_api</code>. Hanya controller yang tidak memiliki route yang akan di-generate.
+    </li>
+    <li>Perintah untuk generate <code>route web</code>.<pre><code>go run legit.go generate:route-web</code></pre>
+        Command ini akan mendeteksi semua controller web yang berada di path <code>app/http/controllers/web</code> kemudian men-generate seluruh routenya ke path <code>routes/inners_api</code>. Hanya controller yang tidak memiliki route yang akan di-generate.
+    </li>
+</ol>
+
+<h3>Command Model dan lainnya</h3>
+<ol>
+    <li>Perintah untuk membuat <code>migration</code>.<pre><code>go run legit.go migration [migrationnya]</code></pre>
+        <span>Contoh:</span> <code>go run legit.go migration users</code>. Command ini untuk membuat schema table yang akan di migrasi ke database Anda. Buatlah nama migration sesuai nama tabel yang akan Anda buat. Penggunaan path tidak diizinkan pada command ini.
+    </li>
+    <li>Perintah untuk membuat <code>model</code>.<pre><code>go run legit.go model [modelnya]</code></pre>
+        <span>Contoh:</span> <code>go run legit.go model users</code>. Command ini untuk membuat model yang akan menghubungkan controller dengan table yang ada di database dengan ORM. Buatlah nama model sesuai nama tabel yang akan dihubungkan. Penggunaan path tidak diizinkan pada command ini.
+    </li>
+    <li>Perintah untuk membuat <code>seeder</code>.<pre><code>go run legit.go seeder [seedernya]</code></pre>
+        <span>Contoh:</span> <code>go run legit.go seeder users</code>. Command ini untuk membuat seeder yang bisa menjalankan kode demo dan lain-lain. Penggunaan path tidak diizinkan pada command ini.
+    </li>
+    <li>Perintah untuk membuat <code>request</code>.<pre><code>go run legit.go request [requestnya]</code></pre>
+        <span>Contoh:</span> <code>go run legit.go request users</code>. Command ini untuk membuat request dengan aturan-aturan khusus yang diperlukan sebagai langkah perlindungan dan pengaturan request pada form. Penggunaan path tidak diizinkan pada command ini.
+    </li>
+    <li>Perintah untuk membuat <code>middleware</code>.<pre><code>go run legit.go middleware [middlewarenya]</code></pre>
+        <span>Contoh:</span> <code>go run legit.go middleware admin</code>. Command ini untuk membuat middleware dengan aturan-aturan khusus yang diperlukan sebagai langkah perlindungan terhadap route. Penggunaan path tidak diizinkan pada command ini.
+    </li>
 </ol>
 
 <hr>
@@ -93,7 +182,7 @@
 
 <hr>
 <h2>Kontribusi</h2>
-<p>Apabila Ingin berkontribusi dalam pengembangan framework ini, silahkan anda Fork repositori ini.</p>
+<p>Apabila Ingin berkontribusi dalam pengembangan framework ini, silahkan Anda Fork repositori ini.</p>
 
 <hr>
 <h2>Kontak</h2>
@@ -102,6 +191,11 @@
 <hr>
 <h2>Support dan Sponsorship</h2>
 <p>Apabila Anda ingin mensupport kami dalam bentuk finansial ataupun lainnya, kami terbuka untuk hal tersebut.</p>
+
+<hr>
+<h2>Dokumentasi</h2>
+<p>Kami belum memiliki website dokumentasi, namun Anda melihat video tutorial di chanel kami.</p>
+[Watch the Playlist on YouTube](https://www.youtube.com/playlist?list=PL_wE6e__R5J3vW3OJCtCniGYW1d7dIR2J)
 
 <hr>
 <h3 align="center">FOLLOW AKUN KAMI</h3>

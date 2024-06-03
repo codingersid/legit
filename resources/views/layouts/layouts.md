@@ -1,1 +1,1 @@
-<!-- lokasi untuk partials layouts themplates -->
+<!-- lokasi untuk layouts themplates -->

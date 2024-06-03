@@ -37,11 +37,15 @@ func scriptSrc() string {
 		"'self'",
 		"'unsafe-inline'",
 		"'unsafe-eval'",
+		"data:",
+		"*.w3.org",
 		"*.googleapis.com",
-		"fonts.gstatic.com",
+		"*.gstatic.com",
 		"*.cloudflare.com",
+		"*.jsdelivr.net",
 		"*.youtube.com",
-		"*.tau.ac.id",
+		"*.googletagmanager.com",
+		"*.githubusercontent.com",
 	}
 	result := strings.Join(slice, " ")
 	return result
@@ -53,11 +57,15 @@ func styleSrc() string {
 		"'self'",
 		"'unsafe-inline'",
 		"'unsafe-eval'",
+		"data:",
+		"*.w3.org",
 		"*.googleapis.com",
-		"fonts.gstatic.com",
+		"*.gstatic.com",
 		"*.cloudflare.com",
+		"*.jsdelivr.net",
 		"*.youtube.com",
-		"*.tau.ac.id",
+		"*.googletagmanager.com",
+		"*.githubusercontent.com",
 	}
 	result := strings.Join(slice, " ")
 	return result
@@ -69,11 +77,15 @@ func frameSrc() string {
 		"'self'",
 		"'unsafe-inline'",
 		"'unsafe-eval'",
+		"data:",
+		"*.w3.org",
 		"*.googleapis.com",
-		"fonts.gstatic.com",
+		"*.gstatic.com",
 		"*.cloudflare.com",
+		"*.jsdelivr.net",
 		"*.youtube.com",
-		"*.tau.ac.id",
+		"*.googletagmanager.com",
+		"*.githubusercontent.com",
 	}
 	result := strings.Join(slice, " ")
 	return result
@@ -85,11 +97,15 @@ func imgSrc() string {
 		"'self'",
 		"'unsafe-inline'",
 		"'unsafe-eval'",
+		"data:",
+		"*.w3.org",
 		"*.googleapis.com",
-		"fonts.gstatic.com",
+		"*.gstatic.com",
 		"*.cloudflare.com",
-		"*.youtube.com",
-		"*.tau.ac.id",
+		"*.jsdelivr.net",
+		"*.youtube.com", "*.tau.ac.id",
+		"*.googletagmanager.com",
+		"*.githubusercontent.com",
 	}
 	result := strings.Join(slice, " ")
 	return result
@@ -101,11 +117,15 @@ func mediaSrc() string {
 		"'self'",
 		"'unsafe-inline'",
 		"'unsafe-eval'",
+		"data:",
+		"*.w3.org",
 		"*.googleapis.com",
-		"fonts.gstatic.com",
+		"*.gstatic.com",
 		"*.cloudflare.com",
-		"*.youtube.com",
-		"*.tau.ac.id",
+		"*.jsdelivr.net",
+		"*.youtube.com", "*.tau.ac.id",
+		"*.googletagmanager.com",
+		"*.githubusercontent.com",
 	}
 	result := strings.Join(slice, " ")
 	return result
@@ -117,11 +137,15 @@ func connectSrc() string {
 		"'self'",
 		"'unsafe-inline'",
 		"'unsafe-eval'",
+		"data:",
+		"*.w3.org",
 		"*.googleapis.com",
-		"fonts.gstatic.com",
+		"*.gstatic.com",
 		"*.cloudflare.com",
+		"*.jsdelivr.net",
 		"*.youtube.com",
-		"*.tau.ac.id",
+		"*.googletagmanager.com",
+		"*.githubusercontent.com",
 	}
 	result := strings.Join(slice, " ")
 	return result
@@ -133,11 +157,15 @@ func manifestSrc() string {
 		"'self'",
 		"'unsafe-inline'",
 		"'unsafe-eval'",
+		"data:",
+		"*.w3.org",
 		"*.googleapis.com",
-		"fonts.gstatic.com",
+		"*.gstatic.com",
 		"*.cloudflare.com",
+		"*.jsdelivr.net",
 		"*.youtube.com",
-		"*.tau.ac.id",
+		"*.googletagmanager.com",
+		"*.githubusercontent.com",
 	}
 	result := strings.Join(slice, " ")
 	return result
@@ -149,11 +177,15 @@ func workerSrc() string {
 		"'self'",
 		"'unsafe-inline'",
 		"'unsafe-eval'",
+		"data:",
+		"*.w3.org",
 		"*.googleapis.com",
-		"fonts.gstatic.com",
+		"*.gstatic.com",
 		"*.cloudflare.com",
+		"*.jsdelivr.net",
 		"*.youtube.com",
-		"*.tau.ac.id",
+		"*.googletagmanager.com",
+		"*.githubusercontent.com",
 	}
 	result := strings.Join(slice, " ")
 	return result
@@ -165,11 +197,15 @@ func fontSrc() string {
 		"'self'",
 		"'unsafe-inline'",
 		"'unsafe-eval'",
+		"data:",
+		"*.w3.org",
 		"*.googleapis.com",
-		"fonts.gstatic.com",
+		"*.gstatic.com",
 		"*.cloudflare.com",
+		"*.jsdelivr.net",
 		"*.youtube.com",
-		"*.tau.ac.id",
+		"*.googletagmanager.com",
+		"*.githubusercontent.com",
 	}
 	result := strings.Join(slice, " ")
 	return result

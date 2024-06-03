@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 	"strconv"
-	"strings"
 
 	legitConfig "github.com/codingersid/legit-cli/config"
 	"github.com/codingersid/legit/config"
@@ -12,34 +11,49 @@ import (
 	"github.com/codingersid/legit/database/seeders"
 	"github.com/codingersid/legit/routes"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
-	"github.com/gofiber/fiber/v2/middleware/helmet"
 	"github.com/gofiber/template/html/v2"
 )
 
 func main() {
-	// engine config
+	/*
+		|	Konfigurasi ENV
+		|	Untuk membaca file .env
+	*/
 	env := legitConfig.LoadEnv()
+
+	/*
+		|	Konfigurasi logrus
+		|	Memanggil fungsi log
+	*/
 	llog := legitConfig.InitLogger("logs")
 
-	// tanpa database
+	/*
+		|	Konfigurasi Database
+		|	Jika APP_NO_DB pada .env false, maka mengkoneksikan database dan wajib ada database
+	*/
 	if env["APP_NO_DB"] == "false" {
 		config.ConnectDB()
-		// database config
+		/*
+			|	Jika APP_ENV pada .env local, maka setiap server dijalankan, database akan menajalankan migration dan seeder
+		*/
 		if env["APP_ENV"] == "local" {
 			migrations.RunMigration()
 			seeders.RunSeeder()
 		}
 	}
 
-	// buat engine
+	/*
+		|	Konfigurasi Engine Template
+	*/
 	resourcesPath := "./resources"
 	if _, err := os.Stat(resourcesPath); os.IsNotExist(err) {
 		resourcesPath = "../resources"
 	}
 	engine := html.New(resourcesPath, ".html")
 
-	// panggil Fiber
+	/*
+		|	Konfigurasi Menjalankan Fiber
+	*/
 	app := fiber.New(fiber.Config{
 		Views:   engine,
 		AppName: env["APP_NAME"],
@@ -60,41 +74,51 @@ func main() {
 		},
 	})
 
-	// konfigurasi middleware
-	app.Use(cors.New())
+	/*
+		|	Konfigurasi Middleware
+	*/
+	config.RunConfigApps(app)
 
-	// konfigurasi helmet
-	csp := config.ConfigCSP
-	app.Use(helmet.New(helmet.Config{
-		ContentSecurityPolicy: csp(),
-	}))
+	/*
+		|	Konfigurasi Route
+		|	API Router
+	*/
+	// REST_API
+	if env["REST_API"] == "true" {
+		routes.RouterApi(app)
+	}
 
-	// Middleware untuk memfilter double slash di akhir URL
-	app.Use(func(c *fiber.Ctx) error {
-		path := c.Path()
-		if strings.HasSuffix(path, "//") {
-			newPath := strings.TrimSuffix(path, "/")
-			return c.Redirect(newPath)
-		}
-		return c.Next()
-	})
-
-	// Panggil routes web
+	/*
+		|	Konfigurasi Route
+		|	Web Router
+	*/
 	routes.RouterWeb(app)
 
-	// lokasi file statics (images, css, js, plugins)
+	/*
+		|	Konfigurasi File Static
+		|	lokasi file statics (images, css, js, plugins)
+	*/
 	staticPath := "./public/statics"
 	if _, err := os.Stat(staticPath); os.IsNotExist(err) {
 		staticPath = "statics"
 	}
 	app.Static("/", staticPath)
+	// statics dengan FileSystem
+	// config.ConfigFileSystem(app)
 
-	// Kirim ke server
+	/*
+		|	Menajalankan Server
+		|	APP_URL pada .env untuk menentukan URL web
+		|	APP_PORT pada .env untuk menentukan PORT yang digunakan pada web
+	*/
 	errServe := app.Listen(env["APP_URL"] + ":" + env["APP_PORT"])
 	if errServe != nil {
 		fmt.Println("Error:", errServe)
 	}
 
-	// tutup log
+	/*
+		|	Konfigurasi logrus
+		|	Menutup fungsi log
+	*/
 	legitConfig.CloseLogger(llog)
 }
