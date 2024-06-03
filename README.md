@@ -194,8 +194,7 @@
 
 <hr>
 <h2>Dokumentasi</h2>
-<p>Kami belum memiliki website dokumentasi, namun Anda melihat video tutorial di chanel kami.</p>
-[Watch the Playlist on YouTube](https://www.youtube.com/playlist?list=PL_wE6e__R5J3vW3OJCtCniGYW1d7dIR2J)
+<p>Kami belum memiliki website dokumentasi, namun Anda bisa melihat <a href="https://www.youtube.com/playlist?list=PL_wE6e__R5J3vW3OJCtCniGYW1d7dIR2J">playlist video tutorial</a> di channel kami.</p>
 
 <hr>
 <h3 align="center">FOLLOW AKUN KAMI</h3>
