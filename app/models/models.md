@@ -1,1 +1,0 @@
-<!-- lokasi file untuk model -->

@@ -1,21 +1,88 @@
 package config
 
 import (
+	"encoding/json"
 	"time"
 
+	legitConfig "github.com/codingersid/legit-cli/config"
+	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/session"
-	"github.com/gofiber/storage/sqlite3"
 	"github.com/gofiber/utils/v2"
+	"gorm.io/gorm"
 )
 
-type Source string
+// struct ke dan dari database
+type Sessions struct {
+	ID        string    `gorm:"primaryKey"`
+	Data      string    `gorm:"type:json"`
+	ExpiresAt time.Time `gorm:"index"`
+	CreatedAt time.Time
+	UpdatedAt time.Time
+}
 
-const (
-	SourceCookie   Source = "cookie"
-	SourceHeader   Source = "header"
-	SourceURLQuery Source = "query"
-	sessionName    Source = "session_id"
-)
+// GormSessionStore adalah struct untuk menyimpan sesi menggunakan Gorm
+type GormSessionStore struct {
+	db *gorm.DB
+}
+
+// NewGormSessionStore membuat instance baru dari GormSessionStore
+func NewGormSessionStore(db *gorm.DB) *GormSessionStore {
+	return &GormSessionStore{db: db}
+}
+
+// Set menyimpan sesi ke dalam database
+func (store *GormSessionStore) Set(id string, data []byte, exp time.Duration) error {
+	encodedData, err := json.Marshal(data)
+	if err != nil {
+		return err
+	}
+	session := Sessions{
+		ID:        id,
+		Data:      string(encodedData),
+		ExpiresAt: time.Now().Add(exp),
+	}
+	// log.Printf("Setting session: %+v", session)
+	return store.db.Save(&session).Error
+}
+
+// Get mengambil sesi dari database
+func (store *GormSessionStore) Get(id string) ([]byte, error) {
+	var session Sessions
+	// log.Printf("Getting session with id: %s", id)
+	if err := store.db.First(&session, "id = ? AND expires_at > ?", id, time.Now()).Error; err != nil {
+		return nil, err
+	}
+	var decodedData []byte
+	if err := json.Unmarshal([]byte(session.Data), &decodedData); err != nil {
+		return nil, err
+	}
+	return decodedData, nil
+}
+
+// Delete menghapus sesi dari database
+func (store *GormSessionStore) Delete(id string) error {
+	// log.Printf("Deleting session with id: %s", id)
+	return store.db.Delete(&Sessions{}, "id = ?", id).Error
+}
+
+// Reset clears all sessions from the database
+func (store *GormSessionStore) Reset() error {
+	// log.Println("Resetting all sessions")
+	return store.db.Exec("DELETE FROM sessions").Error
+}
+
+// Close menutup koneksi database (tidak diperlukan untuk Gorm, tapi untuk memenuhi antarmuka fiber.Storage)
+func (store *GormSessionStore) Close() error {
+	sqlDB, err := store.db.DB()
+	if err != nil {
+		return err
+	}
+	return sqlDB.Close()
+}
+
+// Inisialisasi penyimpanan session menggunakan Gorm
+var sessionInitDb = InitDB()
+var sessionStore = NewGormSessionStore(sessionInitDb)
 
 // Konfigurasi untuk middleware session
 var ConfigSession = session.Config{
@@ -39,6 +106,13 @@ var ConfigSession = session.Config{
 	// KeyGenerator adalah fungsi untuk menghasilkan ID sesi baru.
 	KeyGenerator: utils.UUIDv4,
 	// Storage adalah penyimpanan yang akan digunakan untuk menyimpan data sesi.
-	// Dalam contoh ini, menggunakan penyimpanan SQLite.
-	Storage: sqlite3.New(),
+	Storage: getStorageSession(),
+}
+
+func getStorageSession() fiber.Storage {
+	env := legitConfig.LoadEnv()
+	if env["APP_NO_DB"] == "false" {
+		return sessionStore
+	}
+	return nil
 }
