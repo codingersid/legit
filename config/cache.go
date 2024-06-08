@@ -124,7 +124,6 @@ func (store *GormCacheStore) Reset() error {
 	return nil
 }
 
-var cacheInitDb = InitDBWithoutError()
 var ConfigCache = cache.Config{
 	// Middleware berikutnya dalam rantai, nil berarti tidak ada middleware berikutnya setelah cache.
 	Next: nil,
@@ -154,6 +153,7 @@ var ConfigCache = cache.Config{
 func getStorageCache() fiber.Storage {
 	env := legitConfig.LoadEnv()
 	if env["APP_NO_DB"] == "false" {
+		cacheInitDb := InitDBWithoutError()
 		return &GormCacheStore{DB: cacheInitDb}
 	}
 	return nil

@@ -36,19 +36,32 @@ func (store *GormSessionStore) Set(id string, data []byte, exp time.Duration) er
 	if err != nil {
 		return err
 	}
-	session := Sessions{
-		ID:        id,
-		Data:      string(encodedData),
-		ExpiresAt: time.Now().Add(exp),
+	var session Sessions
+	// Cek apakah sesi sudah ada di database
+	if err := store.db.First(&session, "id = ?", id).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			// Jika sesi tidak ditemukan, buat sesi baru
+			now := time.Now()
+			session = Sessions{
+				ID:        id,
+				Data:      string(encodedData),
+				ExpiresAt: now.Add(exp),
+				CreatedAt: now, // Set CreatedAt here
+				UpdatedAt: now, // Set UpdatedAt to current time
+			}
+			return store.db.Create(&session).Error
+		}
+		return err
 	}
-	// log.Printf("Setting session: %+v", session)
+	// Jika sesi ditemukan, perbarui data saja
+	session.Data = string(encodedData)
+	session.UpdatedAt = time.Now()
 	return store.db.Save(&session).Error
 }
 
 // Get mengambil sesi dari database
 func (store *GormSessionStore) Get(id string) ([]byte, error) {
 	var session Sessions
-	// log.Printf("Getting session with id: %s", id)
 	if err := store.db.First(&session, "id = ? AND expires_at > ?", id, time.Now()).Error; err != nil {
 		return nil, err
 	}
@@ -61,13 +74,11 @@ func (store *GormSessionStore) Get(id string) ([]byte, error) {
 
 // Delete menghapus sesi dari database
 func (store *GormSessionStore) Delete(id string) error {
-	// log.Printf("Deleting session with id: %s", id)
 	return store.db.Delete(&Sessions{}, "id = ?", id).Error
 }
 
 // Reset clears all sessions from the database
 func (store *GormSessionStore) Reset() error {
-	// log.Println("Resetting all sessions")
 	return store.db.Exec("DELETE FROM sessions").Error
 }
 
@@ -79,10 +90,6 @@ func (store *GormSessionStore) Close() error {
 	}
 	return sqlDB.Close()
 }
-
-// Inisialisasi penyimpanan session menggunakan Gorm
-var sessionInitDb = InitDB()
-var sessionStore = NewGormSessionStore(sessionInitDb)
 
 // Konfigurasi untuk middleware session
 var ConfigSession = session.Config{
@@ -112,6 +119,8 @@ var ConfigSession = session.Config{
 func getStorageSession() fiber.Storage {
 	env := legitConfig.LoadEnv()
 	if env["APP_NO_DB"] == "false" {
+		sessionInitDb := InitDBWithoutError()
+		sessionStore := NewGormSessionStore(sessionInitDb)
 		return sessionStore
 	}
 	return nil
